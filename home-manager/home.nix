@@ -27,8 +27,10 @@
   programs.waybar = {
     enable = true;
   };
-  programs.spotify.enable = true;
-
+  programs.neovim = {
+    enable = true;
+    defaultEditor = true;
+  };
   systemd.user.startServices = "sd-switch";
 
   home.stateVersion = "23.05";

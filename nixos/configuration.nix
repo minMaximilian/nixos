@@ -8,7 +8,12 @@
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
+      ./home-manager.nix
     ];
+
+  nixpkgs.overlays = [
+    (import ../overlays/electron-wayland.nix)
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -48,12 +53,6 @@
   services.xserver.displayManager.sddm.enable = true;
   programs.hyprland.enable = true;
 
-  # Configure keymap in X11
-  services.xserver = {
-    layout = "us";
-    xkbVariant = "";
-  };
-
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
@@ -75,6 +74,8 @@
     isNormalUser = true;
     description = "max";
     extraGroups = [ "networkmanager" "wheel" ];
+    shell = pkgs.zsh;
+    createHome = true;
     packages = with pkgs; [
       firefox
     #  thunderbird
@@ -89,9 +90,28 @@
     home-manager
     alacritty
     rofi-wayland
+    spotify
+    discord
+    swww
+    docker
+    docker-compose
+    rustc
+    cargo
+    go_1_21
+    jdk17
+    python311
+    flameshot
+    zsh
+    gradle
+    maven
+    tree
+    unzip
+    htop
   ];
+  
+  programs.zsh.enable = true;
 
-  fonts.fonts = with pkgs; [
+  fonts.packages = with pkgs; [
     font-awesome
   ];
 
@@ -121,5 +141,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.05"; # Did you read the comment?
-
 }
