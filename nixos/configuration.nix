@@ -2,9 +2,9 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
       ./hardware-configuration.nix
-      ./home-manager.nix
+      ../modules/home-manager.nix
     ];
 
   nixpkgs = {
@@ -58,16 +58,21 @@
 
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  users.users.max = {
-    isNormalUser = true;
-    description = "max";
-    extraGroups = [ "networkmanager" "wheel" ];
-    shell = pkgs.zsh;
-    createHome = true;
-    packages = with pkgs; [
-      firefox
-    ];
+  users= {
+    defaultUserShell = pkgs.zsh;
+    users.max = {
+      isNormalUser = true;
+      description = "max";
+      extraGroups = [ "networkmanager" "wheel" "docker" ];
+      shell = pkgs.zsh;
+      createHome = true;
+      packages = with pkgs; [
+        firefox
+      ];
+    };
   };
+
+  environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   environment.systemPackages = with pkgs; [
     vim
@@ -82,6 +87,8 @@
     docker-compose
     rustc
     cargo
+    dunst
+    libnotify
     go_1_21
     jdk17
     python311
