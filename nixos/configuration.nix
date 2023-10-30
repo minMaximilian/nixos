@@ -98,6 +98,7 @@
     tree
     unzip
     htop
+    neofetch
   ];
   
   programs.zsh.enable = true;

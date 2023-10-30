@@ -26,8 +26,11 @@
     ];
   };
 
-  programs.zsh.oh-my-zsh = {
+  programs.zsh = {
     enable = true;
+    oh-my-zsh = {
+      enable = true;
+    };
   };
 
   programs.home-manager.enable = true;
