@@ -83,6 +83,7 @@
     spotify
     swww
     discord
+    lua
     docker
     docker-compose
     rustc
